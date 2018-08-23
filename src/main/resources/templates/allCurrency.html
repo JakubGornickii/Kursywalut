@@ -21,16 +21,16 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/">średnie kursy walut<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/all">średnie kursy walut<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/all">Kursy kupna-sprzedaży<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Kursy kupna-sprzedaży<span class="sr-only">(current)</span></a>
             </li>
 
         </ul>
 
     </div>
-    <div  class="form-inline my-2 my-lg-0 data" th:each="table: ${tableA}" th:text="'Kursy z dnia :  ' + ${table.effectiveDate}"></div>
+    <div  class="form-inline my-2 my-lg-0 data" th:text="'Kursy z dnia :  ' + ${table.effectiveDate}"></div>
 </nav>
 
 <main role="main" class="container">
@@ -40,24 +40,22 @@
             <th scope="col">Waluta</th>
             <th scope="col">Symbol</th>
             <th scope="col">kurs</th>
+            <th scope="col">kurs wczorajszy</th>
+            <th scope="col">zmiana</th>
+            <th scope="col">%</th>
 
         </tr>
         </thead>
         <tbody>
-        <span th:each="tA: ${tableA}">
-        <tr th:each="currA: ${tA.rates}">
-            <td th:text="${currA.currency}"></td>
-            <td th:text="${currA.code}"></td>
-            <td th:text="${currA.mid}"></td>
-            </span>
+        <tr th:each="curr: ${table.midRates}">
+            <td th:text="${curr.currency}"></td>
+            <td th:text="${curr.code}"></td>
+            <td th:text="${#numbers.formatDecimal(curr.mid, 1, 4,'COMMA')}"></td>
+            <td th:text="${#numbers.formatDecimal(curr.yesterdayMid, 1, 4,'COMMA')}"></td>
+            <td th:classappend="${curr.midChange == 0} ? normal : (${curr.midChange < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.midChange, 1, 4,'COMMA')}"></td>
+            <td th:classappend="${curr.midChangePercent == 0} ? normal : (${curr.midChangePercent < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.midChangePercent, 1, 2,'COMMA')}+'%'"></td>
         </tr>
-        <span   th:each="tB: ${tableB}">
-        <tr th:each="currB: ${tB.rates}">
-            <td th:text="${currB.currency}"></td>
-            <td th:text="${currB.code}"></td>
-            <td th:text="${currB.mid}"></td>
-            </span>
-        </tr>
+
         </tbody>
     </table>
 </main><!-- /.container -->
