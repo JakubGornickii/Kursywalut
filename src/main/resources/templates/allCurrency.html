@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>kursy walut NBP</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Kursy walut na podstawie danych z NBP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">średnie kursy walut<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/all">Kursy kupna-sprzedaży<span class="sr-only">(current)</span></a>
+            </li>
+
+        </ul>
+
+    </div>
+    <div  class="form-inline my-2 my-lg-0 data" th:each="table: ${tableA}" th:text="'Kursy z dnia :  ' + ${table.effectiveDate}"></div>
+</nav>
+
+<main role="main" class="container">
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Waluta</th>
+            <th scope="col">Symbol</th>
+            <th scope="col">kurs</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <span th:each="tA: ${tableA}">
+        <tr th:each="currA: ${tA.rates}">
+            <td th:text="${currA.currency}"></td>
+            <td th:text="${currA.code}"></td>
+            <td th:text="${currA.mid}"></td>
+            </span>
+        </tr>
+        <span   th:each="tB: ${tableB}">
+        <tr th:each="currB: ${tB.rates}">
+            <td th:text="${currB.currency}"></td>
+            <td th:text="${currB.code}"></td>
+            <td th:text="${currB.mid}"></td>
+            </span>
+        </tr>
+        </tbody>
+    </table>
+</main><!-- /.container -->
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
