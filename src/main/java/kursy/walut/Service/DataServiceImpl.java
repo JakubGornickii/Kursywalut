@@ -4,7 +4,6 @@ import kursy.walut.client.CallRestService;
 import kursy.walut.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
@@ -54,12 +53,12 @@ public class DataServiceImpl implements DataService {
         bidAskRate.setBidChange(changeBidDouble);
         double change = bidAskRate.getBidChange();
         if (change < 0) {
-            change = -change;
+            change = -change;}
             Double changePro = BigDecimal.valueOf((bidT - bidY) / bidT * 100)
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
             bidAskRate.setBidChangePercent(changePro);
-        }    return bidAskRate;
+          return bidAskRate;
        }
         private BidAskRate createaskData(BidAskRate bidAskRate, double askT, double askY) {
             Double changeBidDouble = BigDecimal.valueOf(askT - askY)
@@ -68,12 +67,12 @@ public class DataServiceImpl implements DataService {
             bidAskRate.setAskChange(changeBidDouble);
             double change = bidAskRate.getBidChange();
             if (change < 0) {
-                change = -change;
+                change = -change;}
                 Double changePro = BigDecimal.valueOf((askT - askY) / askT * 100)
                         .setScale(2, RoundingMode.HALF_UP)
                         .doubleValue();
                 bidAskRate.setAskChangePercent(changePro);
-            }      return bidAskRate;
+                  return bidAskRate;
             }
 
 
