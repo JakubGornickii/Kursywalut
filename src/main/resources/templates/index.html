@@ -53,10 +53,10 @@
             <td th:text="${curr.code}"></td>
             <td th:text="${#numbers.formatDecimal(curr.bid, 1, 4,'COMMA')}"></td>
             <td th:classappend="${curr.bidChange == 0} ? normal : (${curr.bidChange < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.bidChange, 1, 4,'COMMA')}"></td>
-            <td th:classappend="${curr.bidChangePercent == 0} ? normal : (${curr.bidChangePercent < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.bidChangePercent, 1, 2,'COMMA')}"></td>
+            <td th:classappend="${curr.bidChangePercent == 0} ? normal : (${curr.bidChangePercent < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.bidChangePercent, 1, 2,'COMMA')}+'%'"></td>
             <td th:text="${#numbers.formatDecimal(curr.ask, 1, 4,'COMMA')}"></td>
             <td th:classappend="${curr.askChange == 0} ? normal : (${curr.askChange < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.askChange, 1, 4,'COMMA')}"></td>
-            <td th:classappend="${curr.askChangePercent == 0} ? normal : (${curr.askChangePercent < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.askChangePercent, 1, 2,'COMMA')}"></td>
+            <td th:classappend="${curr.askChangePercent == 0} ? normal : (${curr.askChangePercent < 0} ? red : green)" th:text="${#numbers.formatDecimal(curr.askChangePercent, 1, 2,'COMMA')}+'%'"></td>
 
 
         </tbody>
