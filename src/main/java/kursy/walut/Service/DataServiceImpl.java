@@ -23,6 +23,10 @@ public class DataServiceImpl implements DataService {
     public BidAskDataTable generateBidAskTable() throws ParseException {
         Table[] tableToday = callRestService.callRest("c");
         Table[] tableYesterday = callRestService.callRest("c", getYesterday(tableToday[0].getEffectiveDate()));
+        if (tableYesterday ==null )
+        {
+            tableYesterday = callRestService.callRest("c", getFriday(tableToday[0].getEffectiveDate()));
+        }
         BidAskDataTable bidAskDataTable = new BidAskDataTable();
         bidAskDataTable.setEffectiveDate(tableToday[0].getEffectiveDate());
         List<BidAskRate> lists = new ArrayList<>();
@@ -44,6 +48,19 @@ public class DataServiceImpl implements DataService {
         }
         bidAskDataTable.setBidAskRates(lists);
         return bidAskDataTable;
+    }
+
+    private String getFriday(String effectiveDate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = sdf.parse(effectiveDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, -3);
+        Date yesterday = calendar.getTime();
+        String dateyesterday = sdf.format(yesterday);
+
+        return dateyesterday;
+
     }
 
     private BidAskRate createbidData(BidAskRate bidAskRate, double bidT, double bidY) {
@@ -80,7 +97,10 @@ public class DataServiceImpl implements DataService {
     public MidDataTable generateMidTable() throws ParseException {
         Table[] tableToday = callRestService.callRest("a");
         Table[] tableYesterday = callRestService.callRest("a", getYesterday(tableToday[0].getEffectiveDate()));
-
+if (tableYesterday == null)
+{
+    tableYesterday = callRestService.callRest("a", getFriday(tableToday[0].getEffectiveDate()));
+}
         MidDataTable midDataTable = new MidDataTable();
         midDataTable.setEffectiveDate(tableToday[0].getEffectiveDate());
         List<MidRate> lists = new ArrayList<>();

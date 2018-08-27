@@ -9,13 +9,20 @@ public class CallRestService {
 
     public Table[] callRest(String table) {
         RestTemplate restTemplate = new RestTemplate();
-        Table[] tables = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/tables/" + table + "?format=json", Table[].class);
-        return tables;
+        try {
+            Table[] tables = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/tables/" + table + "?format=json", Table[].class);
+            return tables;
+        } catch (Exception ignored) {}
+        return null;
     }
-    public Table[] callRest(String table,String date) {
+
+    public Table[] callRest(String table, String date) {
         RestTemplate restTemplate = new RestTemplate();
-        System.out.println("http://api.nbp.pl/api/exchangerates/tables/" + table +"/"+date+ "?format=json");
-        Table[] tables = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/tables/" + table +"/"+date+ "?format=json", Table[].class);
-        return tables;
+        System.out.println("http://api.nbp.pl/api/exchangerates/tables/" + table + "/" + date + "?format=json");
+        try {
+            Table[] tables = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/tables/" + table + "/" + date + "?format=json", Table[].class);
+            return tables;
+        } catch (Exception ignored) {}
+        return null;
     }
 }
