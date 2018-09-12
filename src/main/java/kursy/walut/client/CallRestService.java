@@ -18,7 +18,7 @@ public class CallRestService {
 
     public Table[] callRest(String table, String date) {
         RestTemplate restTemplate = new RestTemplate();
-        System.out.println("http://api.nbp.pl/api/exchangerates/tables/" + table + "/" + date + "?format=json");
+
         try {
             Table[] tables = restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/tables/" + table + "/" + date + "?format=json", Table[].class);
             return tables;
